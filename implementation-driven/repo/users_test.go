@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"fmt"
 	app "github.com/benjohns1/tdd-and-testing-behavior/implementation-driven"
 	"reflect"
 	"testing"
@@ -44,6 +45,23 @@ func TestUser_Save(t *testing.T) {
 					"Valentine": {Name: "Valentine"},
 				},
 			},
+		},
+		{
+			name: "return an error if the user's name already exists",
+			repo: Users{
+				map[string]app.User{
+					"Peter": {Name: "Peter"},
+				},
+			},
+			args: args{
+				user: app.User{Name: "Peter"},
+			},
+			want: Users{
+				map[string]app.User{
+					"Peter": {Name: "Peter"},
+				},
+			},
+			wantErr: fmt.Errorf(`user name "Peter" already exists`),
 		},
 	}
 	for _, tt := range tests {
