@@ -1,6 +1,7 @@
 package repo
 
 import (
+	"fmt"
 	app "github.com/benjohns1/tdd-and-testing-behavior/behavior-driven"
 )
 
@@ -9,6 +10,11 @@ type Users struct {
 }
 
 func (u *Users) Save(user app.User) error {
+	for _, current := range u.users {
+		if current.Name == user.Name {
+			return fmt.Errorf("user name %q already exists", user.Name)
+		}
+	}
 	u.users = append(u.users, user)
 	return nil
 }
