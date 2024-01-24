@@ -5,14 +5,18 @@ import (
 )
 
 type Users struct {
-	user app.User
+	users []app.User
 }
 
 func (u *Users) Save(user app.User) error {
-	u.user = user
+	u.users = append(u.users, user)
 	return nil
 }
 
 func (u *Users) GetAll() ([]app.User, error) {
-	return []app.User{u.user}, nil
+	out := make([]app.User, 0, len(u.users))
+	for _, user := range u.users {
+		out = append(out, user)
+	}
+	return out, nil
 }

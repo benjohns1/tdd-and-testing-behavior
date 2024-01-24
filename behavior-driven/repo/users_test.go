@@ -25,6 +25,25 @@ func TestUser_Save(t *testing.T) {
 			},
 			wantUsers: []app.User{{Name: "Ender"}},
 		},
+		{
+			name: "should save a user to a repo that already has a user in it",
+			repo: func() repo.Users {
+				r := repo.Users{}
+				if err := r.Save(app.User{
+					Name: "Ender",
+				}); err != nil {
+					t.Fatal(err)
+				}
+				return r
+			}(),
+			args: args{
+				user: app.User{Name: "Valentine"},
+			},
+			wantUsers: []app.User{
+				{Name: "Ender"},
+				{Name: "Valentine"},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
