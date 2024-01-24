@@ -7,8 +7,9 @@ type Users struct {
 }
 
 func (u *Users) Save(user app.User) error {
-	u.users = map[string]app.User{
-		user.Name: user,
+	if u.users == nil {
+		u.users = make(map[string]app.User, 1)
 	}
+	u.users[user.Name] = user
 	return nil
 }

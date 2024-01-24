@@ -28,6 +28,23 @@ func TestUser_Save(t *testing.T) {
 				},
 			},
 		},
+		{
+			name: "store a new user by name to a map that already has a user",
+			repo: Users{
+				map[string]app.User{
+					"Ender": {Name: "Ender"},
+				},
+			},
+			args: args{
+				user: app.User{Name: "Valentine"},
+			},
+			want: Users{
+				map[string]app.User{
+					"Ender":     {Name: "Ender"},
+					"Valentine": {Name: "Valentine"},
+				},
+			},
+		},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
