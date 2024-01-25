@@ -1,0 +1,2 @@
+# TDD and Testing Behavior
+Example code from my [TDD and Testing Behavior](https://www.bennyjohns.com/posts/20240124-tdd-and-testing-behavior) blog post that describes the importance of testing behavior when using test-driven development.
